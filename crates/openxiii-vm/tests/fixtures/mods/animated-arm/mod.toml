@@ -1,0 +1,11 @@
+# Test data (not a shipped mod): an animated model for the engine's tests.
+[mod]
+name = "Animated arm (test data)"
+version = "1.0.0"
+
+[models.TestArm]
+file = "models/arm.gltf"
+scale = 50
+
+[models.TestArm.animations]
+Fire = { clip = "wave", notifies = [[0.5, "TestNotify"]] }

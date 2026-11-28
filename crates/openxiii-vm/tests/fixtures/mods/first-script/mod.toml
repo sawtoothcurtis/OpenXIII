@@ -1,0 +1,25 @@
+[mod]
+name = "First script"
+version = "1.0.0"
+author = "OpenXIII"
+description = "Example mod: a short scene written in Lua. On the beach (Plage01), after the opening scene, a visitor waits near the hut; when XIII comes near he speaks, waits, and a guard appears."
+openxiii = "0.1.0"
+
+# The two characters the script creates (scripts/scene.lua). A [character] is defined here, in
+# the toml, exactly as for a keyboard shortcut or a map change; the script says when and where.
+
+# General Carrington, a character of a later level (Hual02), with his look and his voice.
+[character.Visitor]
+base = "XIDCine.Cine2"               # the game's class for story characters: calm
+team = "friend"
+properties = { Mesh = "XIIIPersos.CarringtonM", CodeMesh = 16, PawnName = "Carrington" }
+
+[character.Guard]
+base = "XIDPawn.BaseSoldier"         # the game's soldier
+team = "neutral"                     # does not treat the player as an enemy
+allowed_states = ["ResteSurPlace"]   # stays where he is
+properties = { Mesh = "XIIIPersos.SpadsM" }   # the look of the beach's soldiers
+
+[character.Guard.state.ResteSurPlace]
+animation = "WaitNeutre"
+loop = true

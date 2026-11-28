@@ -1,0 +1,28 @@
+[mod]
+name = "A hooded conspirator's arms"
+version = "1.0.0"
+author = "OpenXIII"
+description = "Arms of a co-op character: every weapon and object seen in first person is held with the bare hands and wide hanging sleeves of a hooded conspirator's robe, made from the player's own game when it starts. Use it instead of the other arms mods, not with them."
+openxiii = "0.1.0"
+
+# Every first-person mesh of the game, drawn instead of the game's. On his model (KKKM) the hooded
+# conspirator wears a long cream robe whose sleeves are wide wings hanging under the arms, cream
+# outside, purple inside, edged in purple; his hands are bare, the size of XIII's. Skin and cloth
+# are measured on his model. The weapons and objects themselves are unchanged.
+[arms.Conspirator]
+from = ["XIIIArmes.*", "XIIIDeco.*"]
+replace = true
+skin_from = "XIIIPersos.KKKM"
+
+# The sleeve: cream, edged in purple at the cuff. The wing hanging under his arm is left out: it
+# would hang below the screen in first person (it shows on his body).
+[arms.Conspirator.sleeve]
+fabric_from = "XIIIPersos.KKKM"
+cuff = 0.95
+band = [66, 17, 66]
+band_width = 0.06
+relief_from = "XIIIPersos.KKKM"
+thickness = 1.05
+room = 0.15
+lip = 1.05
+folds = 0

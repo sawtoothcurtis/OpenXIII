@@ -1,0 +1,38 @@
+[mod]
+name = "A SPADS soldier's arms"
+version = "1.0.0"
+author = "OpenXIII"
+description = "Arms of a co-op character: every weapon and object seen in first person is held with the fingerless gloves and grey sleeves of a SPADS soldier, made from the player's own game when it starts. Use it instead of the other arms mods, not with them."
+openxiii = "0.1.0"
+
+# Every first-person mesh of the game, drawn instead of the game's. A SPADS soldier in the dress of
+# his model (SPADSTex): grey sleeves ending in a ribbed cuff, and black fingerless gloves; his
+# hands are the size of XIII's. The cloth is measured on his model, the skin of his fingers on the
+# same model with its bare-handed skin (SpadsJungleSkin2TEX). The weapons and objects are
+# unchanged.
+[arms.Spads]
+from = ["XIIIArmes.*", "XIIIDeco.*"]
+replace = true
+skin_from = "XIIIPersos.SpadsM@XIIIPersos.Skins.SpadsJungleSkin2TEX"
+
+# The sleeve: straight and fitted, plain grey, narrowing into the ribbed cuff (its darker stripes
+# along the arm), two thin crease lines and a small lip.
+[arms.Spads.sleeve]
+fabric_from = "XIIIPersos.SpadsM"
+cuff = 0.95
+creases = true
+ribs = [0.78, 12, 0.5]
+rib_colour = [66, 73, 74]
+relief_from = "XIIIPersos.SpadsM"
+thickness = 1.05
+room = 0.15
+lip = 1.03
+taper = [0.7, 0.85]
+folds = 0
+
+# The fingerless gloves: from the wrist to the base of the fingers (the hand is at 1.5 along the
+# forearm, its fingers at 2), in the black of his model's.
+[arms.Spads.gloves]
+colour = [33, 37, 33]
+from = 0.97
+to = 1.75

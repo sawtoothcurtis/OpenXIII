@@ -1,0 +1,23 @@
+[package]
+name = "openxiii-cli"
+description = "Command-line tools of OpenXIII"
+version.workspace = true
+edition.workspace = true
+license.workspace = true
+
+[[bin]]
+name = "oxiii"
+path = "src/main.rs"
+
+[features]
+# Mod tools (oxiii mods-reference), docs/modding/README.md. Off by default.
+mods = ["openxiii-vm/mods"]
+# Improved build (fixes beyond the original game).
+improved = ["openxiii-vm/improved"]
+
+[dependencies]
+openxiii-package = { path = "../openxiii-package" }
+openxiii-assets = { path = "../openxiii-assets" }
+openxiii-script = { path = "../openxiii-script" }
+openxiii-vm = { path = "../openxiii-vm" }
+openxiii-hx = { path = "../openxiii-hx" }

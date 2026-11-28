@@ -1,0 +1,32 @@
+[mod]
+name = "Sheridan's arms"
+version = "1.0.0"
+author = "OpenXIII"
+description = "Arms of a co-op character: every weapon and object seen in first person is held with Walter Sheridan's hands in the sleeves of his dinner jacket, made from the player's own game when it starts. Use it instead of the other arms mods, not with them."
+openxiii = "0.1.0"
+
+# Every first-person mesh of the game, drawn instead of the game's. Sheridan in his dinner jacket,
+# as at the party of Bateau01 (his model with its other skin, SheridanChicTex): a black sleeve, the
+# white cuff of his shirt showing at the wrist and three gold buttons; his hands are bare, the size
+# of XIII's. Skin and cloth are measured on that skin. The weapons and objects are unchanged.
+[arms.Sheridan]
+from = ["XIIIArmes.*", "XIIIDeco.*"]
+replace = true
+skin_from = "XIIIPersos.SheridanM@XIIIPersos.Skins.SheridanChicTex"
+
+# The sleeve: straight and fitted, black (its colour measured on the jacket, without the shirt's
+# cuff), the shirt's white cuff as a band at its edge, three gold buttons, two thin crease lines
+# and a small lip.
+[arms.Sheridan.sleeve]
+fabric = [33, 36, 24]
+cuff = 0.96
+band = [247, 233, 218]
+band_width = 0.05
+creases = true
+buttons = [0.87, 3, 1.15, 0.045]
+button_colour = [196, 160, 72]
+relief_from = "XIIIPersos.SheridanM@XIIIPersos.Skins.SheridanChicTex"
+thickness = 1.05
+room = 0.15
+lip = 1.03
+folds = 0

@@ -1,0 +1,26 @@
+[mod]
+name = "Stronger Pistol"
+version = "1.0.0"
+author = "OpenXIII"
+description = "Example mod: a bigger magazine and more damage for the 9mm pistol (Beretta), which fires with the sound of the sniper rifle, even on maps where the sniper rifle does not exist, such as the beach (Plage01)."
+openxiii = "0.1.0"
+
+# The 9mm pistol. Original values: ReloadCount 13, ShotTime 0.5, TraceAccuracy 1.5,
+# PickupAmmoCount 13.
+[class."XIII.Beretta"]
+ReloadCount = 17
+ShotTime = 0.35
+TraceAccuracy = 0.8
+# A new weapon's magazine holds at most PickupAmmoCount rounds (Weapon.uc), so raise it too
+# for a full 17-round magazine from the start.
+PickupAmmoCount = 17
+# The sniper rifle's firing sound. It is not in the sound bank of every map (not in the beach's):
+# the mods build finds the bank that holds it and loads it when the level starts. As a class
+# value it applies on every map: the pistol the player picks up is created during play, and map
+# tables only change the actors a map placed.
+hFireSound = "XIIIsound.Guns__SnipFire.SnipFire__hSnipFire"
+
+# Its ammo. Original values: SRDamages 25, MaxAmmo 200.
+[class."XIII.c9mmAmmo"]
+SRDamages = 35
+MaxAmmo = 300

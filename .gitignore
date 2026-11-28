@@ -1,0 +1,5 @@
+# Build output
+/target/
+/crates/openxiii-android/target/
+# Game files are never part of the repository
+/game/

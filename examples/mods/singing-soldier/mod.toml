@@ -1,0 +1,47 @@
+[mod]
+name = "Singing Soldier"
+version = "1.0.0"
+author = "OpenXIII"
+description = "Example mod: on any level, U makes a SPADS soldier appear in front of the player, singing the song of the SPADS camp (SPADS02a) in a loop, in the game's language. Add as many as you like for a choir: O makes them all start the song again together, P sends them all away. They never fight, and they can be shot."
+openxiii = "0.1.0"
+
+# U: a singer, 200 units in front of the player (or the first spot around with room).
+[[shortcut]]
+key = "U"
+spawn = "Singer"
+in_front_of_player = 200
+
+# The singer: a soldier of the game whose AI is kept in one state, where he sings.
+[character.Singer]
+base = "XIDPawn.BaseSoldier"
+team = "neutral"                     # never treats the player as an enemy
+allowed_states = ["ResteSurPlace"]   # "stay in place": his AI never leaves it
+can_die = true                       # a shot kills him as any soldier
+death_animation = "DeathDos"
+look = "Spads"                       # the SPADS soldiers' model...
+skin = "XIIIPersos.Skins.SpadsJungleSkin2TEX"   # ...in the camp's jungle uniform
+voice = "Spads"                      # his cry when he dies
+# The soldiers' special animations, linked to his model when he is created: "gichante", the
+# soldier singing, is one of them.
+properties = { SpecificAnimations = ["XIIIPersos.GIspeA"] }
+
+# While he stays in place: the singing animation and the song, both in a loop. The song is a
+# line of SPADS02a: the player's own game files hold it, in each language, and it is played in
+# the language the game is set to. On any other level its sound bank is loaded by itself.
+# When he dies or is sent away, the song stops.
+[character.Singer.state.ResteSurPlace]
+animation = "gichante"
+sound = "SPADS02aVoices.SPADS02a_SPADS2a_00"
+loop = true
+
+# O: every singer starts the song again from its beginning, all together.
+[[map."solo".when]]
+event = "key"
+key = "O"
+then = [ { restart = "every Singer" } ]
+
+# P: every singer, alive or dead, is sent away.
+[[map."solo".when]]
+event = "key"
+key = "P"
+then = [ { remove = "every Singer" } ]

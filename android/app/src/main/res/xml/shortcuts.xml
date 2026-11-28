@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="utf-8"?>
+<shortcuts xmlns:android="http://schemas.android.com/apk/res/android">
+    <shortcut
+        android:shortcutId="change_folder"
+        android:enabled="true"
+        android:icon="@mipmap/ic_launcher"
+        android:shortcutShortLabel="@string/change_folder_short"
+        android:shortcutLongLabel="@string/change_folder_long">
+        <intent
+            android:action="org.openxiii.CHANGE_FOLDER"
+            android:targetPackage="org.openxiii"
+            android:targetClass="org.openxiii.LauncherActivity" />
+    </shortcut>
+</shortcuts>

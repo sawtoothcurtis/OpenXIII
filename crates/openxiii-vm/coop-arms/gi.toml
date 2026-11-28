@@ -1,0 +1,26 @@
+[mod]
+name = "A marine's arms"
+version = "1.0.0"
+author = "OpenXIII"
+description = "Arms of a co-op character: every weapon and object seen in first person is held with the bare hands and plain olive sleeves of a marine (GI), made from the player's own game when it starts. Use it instead of the other arms mods, not with them."
+openxiii = "0.1.0"
+
+# Every first-person mesh of the game, drawn instead of the game's. On his model the GI wears a
+# plain olive shirt whose sleeves come down to the wrist; his hands are bare, the size of XIII's.
+# Skin and cloth are measured on his model. The weapons and objects themselves are unchanged.
+[arms.GI]
+from = ["XIIIArmes.*", "XIIIDeco.*"]
+replace = true
+skin_from = "XIIIPersos.GiM"
+
+# The sleeve: straight and fitted, plain olive (its shadows come from the game's cartoon shading),
+# two thin crease lines and a small lip at the cuff.
+[arms.GI.sleeve]
+fabric_from = "XIIIPersos.GiM"
+cuff = 0.95
+creases = true
+relief_from = "XIIIPersos.GiM"
+thickness = 1.05
+room = 0.15
+lip = 1.04
+folds = 0

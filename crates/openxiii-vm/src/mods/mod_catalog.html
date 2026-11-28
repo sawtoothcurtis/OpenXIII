@@ -1,0 +1,232 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Modding catalog</title>
+<meta name="openxiii-catalog" content="/*STAMP*/">
+<style>
+:root {
+  --bg: #f6f5f2; --panel: #ffffff; --text: #1d1d1b; --muted: #6b6a66; --line: #dddbd5;
+  --accent: #b3261e; --accent-text: #ffffff; --code-bg: #f0eee9; --hover: #f3f1ec; --ok: #2e7d32;
+  color-scheme: light;
+}
+@media (prefers-color-scheme: dark) {
+  :root {
+    --bg: #161615; --panel: #1f1f1d; --text: #ecebe7; --muted: #a09e98; --line: #34332f;
+    --accent: #ef6b5f; --accent-text: #1a0d0b; --code-bg: #2a2926; --hover: #262522; --ok: #81c784;
+    color-scheme: dark;
+  }
+}
+* { box-sizing: border-box; }
+body { margin: 0; background: var(--bg); color: var(--text); font: 15px/1.45 system-ui, -apple-system, "Segoe UI", Roboto, sans-serif; }
+header { position: sticky; top: 0; z-index: 2; background: var(--bg); border-bottom: 1px solid var(--line); padding: 14px 16px 0; }
+.wrap { max-width: 1200px; margin: 0 auto; }
+h1 { font-size: 20px; margin: 0 0 4px; letter-spacing: .02em; }
+.intro { color: var(--muted); margin: 0 0 10px; font-size: 13.5px; }
+.search { display: flex; gap: 8px; align-items: center; }
+#q { flex: 1; font: inherit; font-size: 16px; padding: 9px 12px; border: 1px solid var(--line); border-radius: 8px; background: var(--panel); color: var(--text); min-width: 0; }
+#q:focus { outline: 2px solid var(--accent); outline-offset: -1px; }
+nav { display: flex; gap: 2px; overflow-x: auto; margin-top: 10px; scrollbar-width: thin; }
+nav button { font: inherit; font-size: 14px; background: none; border: 0; border-bottom: 3px solid transparent; color: var(--muted); padding: 8px 10px 7px; cursor: pointer; white-space: nowrap; }
+nav button[aria-selected="true"] { color: var(--text); border-bottom-color: var(--accent); font-weight: 600; }
+nav button .n { font-size: 12px; color: var(--muted); font-weight: 400; margin-left: 4px; }
+nav button.none { opacity: .45; }
+main { padding: 12px 16px 40px; }
+.about { color: var(--muted); font-size: 13.5px; margin: 2px 0 12px; }
+.elsewhere { margin: 0 0 12px; font-size: 14px; }
+.elsewhere a { color: var(--accent); cursor: pointer; text-decoration: underline; margin-right: 10px; }
+table { width: 100%; border-collapse: collapse; background: var(--panel); border: 1px solid var(--line); border-radius: 8px; overflow: hidden; }
+th, td { text-align: left; vertical-align: top; padding: 7px 10px; border-bottom: 1px solid var(--line); }
+th { font-size: 12.5px; color: var(--muted); font-weight: 600; background: var(--panel); }
+tr:last-child td { border-bottom: 0; }
+tbody tr:hover { background: var(--hover); }
+td.wide { min-width: 300px; }
+.paste { display: flex; gap: 6px; align-items: flex-start; }
+code { font: 13px/1.4 ui-monospace, "Cascadia Mono", Consolas, monospace; background: var(--code-bg); padding: 2px 6px; border-radius: 5px; white-space: pre-wrap; overflow-wrap: anywhere; }
+td.wide code { white-space: pre; }
+.copy { font: inherit; font-size: 12px; border: 1px solid var(--line); background: var(--panel); color: var(--text); border-radius: 5px; padding: 1px 7px; cursor: pointer; flex: none; }
+.copy:hover { border-color: var(--accent); }
+.copy.done { color: var(--ok); border-color: var(--ok); }
+.small { color: var(--muted); font-size: 13px; }
+.more { margin: 12px 0; font: inherit; padding: 7px 14px; border-radius: 7px; border: 1px solid var(--line); background: var(--panel); color: var(--text); cursor: pointer; }
+details.map { background: var(--panel); border: 1px solid var(--line); border-radius: 8px; margin-bottom: 8px; }
+details.map > summary { cursor: pointer; padding: 9px 12px; list-style-position: inside; }
+details.map > summary b { font-size: 15.5px; }
+details.map .inner { padding: 0 12px 12px; overflow-x: auto; }
+details.map table { border-radius: 6px; }
+.cps { margin: 4px 0 10px; font-size: 13.5px; }
+.empty { color: var(--muted); padding: 20px 0; }
+@media (max-width: 720px) {
+  td.wide { min-width: 0; }
+  td.wide code { white-space: pre-wrap; }
+  thead { display: none; }
+  table, tbody, tr, td { display: block; width: 100%; }
+  tr { border-bottom: 1px solid var(--line); padding: 6px 0; }
+  td { border: 0; padding: 3px 10px; }
+  td[data-h]:not(:first-child)::before { content: attr(data-h) ": "; color: var(--muted); font-size: 12.5px; }
+}
+</style>
+</head>
+<body>
+<header><div class="wrap">
+  <h1>Modding catalog</h1>
+  <p class="intro">Every name a mod can use, read from your own copy of XIII. Search, then copy the line on the left into your mod's <code>mod.toml</code>. How to write a mod: <code>docs/modding/README.md</code>.</p>
+  <div class="search"><input id="q" type="search" placeholder="Search everything (for example: jones, guard, PRock03, beretta)" autocomplete="off" spellcheck="false" aria-label="Search"></div>
+  <nav id="tabs" role="tablist"></nav>
+</div></header>
+<main><div class="wrap" id="out"></div></main>
+<script id="catalog-data" type="application/json">/*CATALOG_DATA*/</script>
+<script>
+"use strict";
+const D = JSON.parse(document.getElementById("catalog-data").textContent);
+const PAGE = 200;
+const TABS = [
+  { id: "looks", title: "Characters", cols: ["Paste", "Friendly names", "Who it is", "Model", "Worn in the game by", "Maps"],
+    about: "A friendly name is a whole character: character = \"Jones\" in [[map.<Map>.add]] or spawn = \"Jones\" in [[shortcut]]. It is also a look: look = \"…\" in [[map.<Map>.change]], [[map.<Map>.add]] and [character.<Name>]. Simple keys that go with it: look, skin, health, name, voice, weapon, team (friend, neutral, enemy), behaviour (stands, patrols, fights), can_die." },
+  { id: "weapons", title: "Weapons", cols: ["Paste", "Name", "Class", "Pickup class", "Ammo class"],
+    about: "weapon = \"…\" gives a weapon to a character a mod adds or changes; the same names go in [map.<Map>.start] weapons = […]. Change a weapon with [class.\"<Class>\"], place its pickup with [[map.<Map>.add]] class = \"<Pickup class>\"." },
+  { id: "objects", title: "Objects and pickups", cols: ["Paste", "Gives", "Class", "Kind"],
+    about: "Classes a mod can place with [[map.<Map>.add]] class = \"…\" (pickups, and other objects)." },
+  { id: "decorations", title: "Decorations", cols: ["Paste", "Static mesh"],
+    about: "Solid models (static meshes) a mod can place with [[map.<Map>.add]] model = \"…\"." },
+  { id: "maps", title: "Maps",
+    about: "Map names for [map.<Map>…] tables, the checkpoints for from_checkpoint, and the characters each map places: the who value finds that character alone in [[map.<Map>.change]]." },
+  { id: "sounds", title: "Sounds", cols: ["Paste", "Sound"],
+    about: "Sounds of the game, by their full name, for sound values, [map.<Map>.replace_sounds] and the say entries." },
+  { id: "music", title: "Music", cols: ["Paste", "Music sound"],
+    about: "The music of the levels (the XIIISound groups named Music…), sounds like the others." },
+  { id: "dialogues", title: "Dialogues", cols: ["Paste", "Line", "Speaker", "Subtitle", "Voice"],
+    about: "Lines of the game a character can say in a [[map.<Map>.say]] entry, with their subtitle in the game's language." },
+  { id: "scripts", title: "Scripts", cols: ["Paste", "Name", "Kind", "Settings or arguments", "What it does"],
+    about: "The events and actions of [[map.<Map>.when]] blocks (event = \"…\", then = [ { action = … } ]: docs/modding/reactions.md), then the events and functions of the mods' Lua scripts (docs/modding/script/)." },
+];
+// Lower-case search text of each row, built once.
+const HAY = {};
+for (const t of TABS) {
+  if (t.id === "maps") {
+    HAY.maps = D.maps.map(m => ({
+      self: [m[0], m[1], m[2]].concat(m[3].map(c => "checkpoint " + c[0] + " " + c[1])).join(" ").toLowerCase(),
+      people: m[4].map(p => p.join(" ").toLowerCase()),
+    }));
+  } else {
+    HAY[t.id] = D[t.id].map(r => r.join(" ").toLowerCase());
+  }
+}
+let current = "looks", shown = PAGE, terms = [];
+const $ = s => document.querySelector(s);
+const esc = s => String(s).replace(/[&<>"]/g, c => ({ "&": "&amp;", "<": "&lt;", ">": "&gt;", "\"": "&quot;" }[c]));
+const hit = h => terms.every(w => h.includes(w));
+
+function matches(id) {
+  if (id === "maps") {
+    const out = [];
+    HAY.maps.forEach((h, i) => {
+      if (!terms.length || hit(h.self)) { out.push([i, null]); return; }
+      const people = [];
+      h.people.forEach((p, j) => { if (hit(h.self + " " + p)) people.push(j); });
+      if (people.length) out.push([i, people]);
+    });
+    return out;
+  }
+  const out = [];
+  HAY[id].forEach((h, i) => { if (!terms.length || hit(h)) out.push(i); });
+  return out;
+}
+
+function pasteCell(text) {
+  return '<div class="paste"><code>' + esc(text) + '</code><button class="copy" type="button" data-copy="' + esc(text) + '">Copy</button></div>';
+}
+
+function tableHtml(cols, rows) {
+  let h = "<table><thead><tr>" + cols.map(c => "<th>" + esc(c) + "</th>").join("") + "</tr></thead><tbody>";
+  for (const r of rows) {
+    h += "<tr>" + r.map((c, k) => k === 0 ? '<td class="wide">' + pasteCell(c) + "</td>" : '<td data-h="' + esc(cols[k]) + '">' + esc(c) + "</td>").join("") + "</tr>";
+  }
+  return h + "</tbody></table>";
+}
+
+function renderMaps(found) {
+  const cols = ["Paste", "who", "Actor", "Class", "PawnName", "Tag", "Model", "Health", "Position"];
+  let h = "";
+  for (const [i, people] of found.slice(0, shown)) {
+    const m = D.maps[i];
+    const list = people === null ? m[4] : people.map(j => m[4][j]);
+    const open = terms.length > 0 ? " open" : "";
+    h += '<details class="map" data-map="' + esc(m[0]) + '"' + open + "><summary><b>" + esc(m[0]) + "</b> " +
+      '<span class="small">' + esc(m[1] || "") + " · " + esc(m[2]) + " · " + m[3].length + " checkpoint" + (m[3].length === 1 ? "" : "s") +
+      " · " + m[4].length + " character" + (m[4].length === 1 ? "" : "s") + "</span></summary><div class=\"inner\">";
+    h += '<div class="paste" style="margin:2px 0 6px">' + pasteCell("[[map." + m[0] + ".add]]") + "</div>";
+    if (m[3].length) h += '<div class="cps">' + m[3].map(c => "<b>" + c[0] + "</b> " + esc(c[1] || "(no description)")).join(" · ") + "</div>";
+    h += list.length ? tableHtml(cols, list) : '<p class="small">No character placed by this map.</p>';
+    h += "</div></details>";
+  }
+  return h;
+}
+
+function render() {
+  const counts = {};
+  for (const t of TABS) counts[t.id] = matches(t.id).length;
+  $("#tabs").innerHTML = TABS.map(t => '<button role="tab" type="button" data-tab="' + t.id + '" aria-selected="' + (t.id === current) + '"' +
+    (counts[t.id] ? "" : ' class="none"') + ">" + esc(t.title) + '<span class="n">' + counts[t.id].toLocaleString("en") + "</span></button>").join("");
+  const tab = TABS.find(t => t.id === current);
+  const found = matches(current);
+  let h = '<p class="about">' + esc(tab.about) + "</p>";
+  if (!found.length) {
+    const other = TABS.filter(t => counts[t.id] > 0);
+    h += '<p class="empty">Nothing here' + (terms.length ? " for “" + esc(terms.join(" ")) + "”" : "") + ".</p>";
+    if (other.length) h += '<p class="elsewhere">Found in: ' + other.map(t => '<a data-tab="' + t.id + '">' + esc(t.title) + " (" + counts[t.id] + ")</a>").join("") + "</p>";
+  } else if (current === "maps") {
+    h += renderMaps(found);
+  } else {
+    h += tableHtml(tab.cols, found.slice(0, shown).map(i => D[current][i]));
+  }
+  if (found.length > shown) h += '<button class="more" type="button" id="more">Show more (' + (found.length - shown).toLocaleString("en") + " left)</button>";
+  h += '<p class="small" style="margin-top:16px">Texts in the game’s language (' + esc(D.language) + "). Made by OpenXIII from the installed game; nothing here is sent anywhere.</p>";
+  $("#out").innerHTML = h;
+}
+
+function setState(push) {
+  const q = $("#q").value;
+  terms = q.toLowerCase().split(/\s+/).filter(Boolean);
+  shown = PAGE;
+  render();
+  if (push) {
+    const p = new URLSearchParams();
+    p.set("tab", current);
+    if (q) p.set("q", q);
+    history.replaceState(null, "", "#" + p.toString());
+  }
+}
+
+function copyText(text, btn) {
+  const done = () => { btn.textContent = "Copied"; btn.classList.add("done"); setTimeout(() => { btn.textContent = "Copy"; btn.classList.remove("done"); }, 1200); };
+  const fallback = () => {
+    const ta = document.createElement("textarea");
+    ta.value = text; ta.style.position = "fixed"; ta.style.opacity = "0";
+    document.body.appendChild(ta); ta.select();
+    try { document.execCommand("copy"); done(); } catch (e) { /* nothing to do */ }
+    ta.remove();
+  };
+  if (navigator.clipboard && navigator.clipboard.writeText) navigator.clipboard.writeText(text).then(done, fallback); else fallback();
+}
+
+document.addEventListener("click", e => {
+  const t = e.target.closest("[data-tab]");
+  if (t) { current = t.dataset.tab; setState(true); return; }
+  const c = e.target.closest("[data-copy]");
+  if (c) { copyText(c.dataset.copy, c); return; }
+  if (e.target.id === "more") { shown += PAGE; render(); }
+});
+let timer = 0;
+$("#q").addEventListener("input", () => { clearTimeout(timer); timer = setTimeout(() => setState(true), 120); });
+
+// Start from the link's #tab=…&q=… if any.
+const start = new URLSearchParams(location.hash.slice(1));
+if (TABS.some(t => t.id === start.get("tab"))) current = start.get("tab");
+$("#q").value = start.get("q") || "";
+setState(false);
+$("#q").focus();
+</script>
+</body>
+</html>

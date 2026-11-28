@@ -1,0 +1,99 @@
+plugins {
+    id 'com.android.application'
+}
+
+// Release signing: nothing secret lives in the repository. Each value is read, in this order, from
+// a Gradle property (-P on the command line or ~/.gradle/gradle.properties), then from an
+// environment variable:
+//   openxiii.keystore           / OXIII_KEYSTORE           path of the keystore file
+//   openxiii.keystore.password  / OXIII_KEYSTORE_PASSWORD  keystore password
+//   openxiii.key.alias          / OXIII_KEY_ALIAS          key alias
+//   openxiii.key.password       / OXIII_KEY_PASSWORD       key password
+// android/build-apk.ps1 can also fill the environment from a local file kept outside the repository
+// (see that script). The release build stops with a clear message when a value is missing.
+// The debug build uses the standard Android debug key.
+def signingValue = { String property, String env ->
+    def value = project.findProperty(property) ?: System.getenv(env)
+    return value ? value.toString() : null
+}
+def releaseSigning = [
+    storeFile    : signingValue('openxiii.keystore', 'OXIII_KEYSTORE'),
+    storePassword: signingValue('openxiii.keystore.password', 'OXIII_KEYSTORE_PASSWORD'),
+    keyAlias     : signingValue('openxiii.key.alias', 'OXIII_KEY_ALIAS'),
+    keyPassword  : signingValue('openxiii.key.password', 'OXIII_KEY_PASSWORD'),
+]
+def missingSigning = [
+    storeFile    : 'openxiii.keystore (or OXIII_KEYSTORE)',
+    storePassword: 'openxiii.keystore.password (or OXIII_KEYSTORE_PASSWORD)',
+    keyAlias     : 'openxiii.key.alias (or OXIII_KEY_ALIAS)',
+    keyPassword  : 'openxiii.key.password (or OXIII_KEY_PASSWORD)',
+].findAll { key, name -> !releaseSigning[key] }.values()
+def releaseSigningReady = missingSigning.isEmpty()
+
+android {
+    namespace 'org.openxiii'
+    compileSdk 35
+
+    defaultConfig {
+        applicationId 'org.openxiii'
+        minSdk 26
+        targetSdk 35
+        versionCode 1
+        versionName '0.1'
+        // OXIII_ABI=x86_64: test APK for the PC emulator (build-apk.ps1).
+        ndk { abiFilters(System.getenv('OXIII_ABI') ?: 'arm64-v8a') }
+    }
+
+    signingConfigs {
+        // Updates install over an earlier APK as long as the same key is used.
+        release {
+            if (releaseSigningReady) {
+                storeFile file(releaseSigning.storeFile)
+                storePassword releaseSigning.storePassword
+                keyAlias releaseSigning.keyAlias
+                keyPassword releaseSigning.keyPassword
+            }
+        }
+    }
+
+    buildTypes {
+        release {
+            minifyEnabled false
+            if (releaseSigningReady) {
+                signingConfig signingConfigs.release
+            }
+        }
+        // debug: no signingConfig, so Gradle uses the standard debug key (~/.android/debug.keystore).
+    }
+
+    compileOptions {
+        sourceCompatibility JavaVersion.VERSION_17
+        targetCompatibility JavaVersion.VERSION_17
+    }
+
+    packagingOptions {
+        jniLibs { useLegacyPackaging true }
+    }
+}
+
+// A release APK is never built unsigned: stop before any work if a signing value is missing.
+gradle.taskGraph.whenReady { graph ->
+    def wantsRelease = graph.allTasks.any { it.project == project && it.name.toLowerCase().contains('release') }
+    if (wantsRelease && !releaseSigningReady) {
+        throw new GradleException('Release signing is not configured. Missing: ' + missingSigning.join(', ') +
+            '. Set them as Gradle properties or environment variables (see android/app/build.gradle), ' +
+            'or build the debug APK instead (assembleDebug).')
+    }
+    if (wantsRelease && !file(releaseSigning.storeFile).isFile()) {
+        throw new GradleException('Release keystore not found: ' + releaseSigning.storeFile)
+    }
+}
+
+dependencies {
+    // A single version of the Kotlin library (games-activity and appcompat pull in two).
+    implementation platform('org.jetbrains.kotlin:kotlin-bom:1.8.22')
+    // Version of the C part compiled into libopenxiii.so by android-activity 0.6.1 (GAMEACTIVITY_*_VERSION 4.4.0).
+    implementation 'androidx.games:games-activity:4.4.0'
+    implementation 'androidx.appcompat:appcompat:1.7.0'
+    implementation 'androidx.core:core:1.13.1'
+}

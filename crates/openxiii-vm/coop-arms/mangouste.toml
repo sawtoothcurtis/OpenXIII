@@ -1,0 +1,31 @@
+[mod]
+name = "Mongoose's arms"
+version = "1.0.0"
+author = "OpenXIII"
+description = "Arms of a co-op character: every weapon and object seen in first person is held with the Mongoose's hands and the sleeves of his trench coat, made from the player's own game when it starts. Use it instead of the other arms mods, not with them."
+openxiii = "0.1.0"
+
+# Every first-person mesh of the game, drawn instead of the game's. On his model the Mongoose
+# wears a brown trench coat whose sleeves come down to the wrist, and his hands are bare: the
+# skin is measured on his own hands. His hands are the size of XIII's. The weapons and objects
+# themselves are unchanged.
+[arms.Mongoose]
+from = ["XIIIArmes.*", "XIIIDeco.*"]
+replace = true
+skin_from = "XIIIPersos.MangousteM"
+nails = [214, 176, 152]
+
+# The coat's sleeve: straight and fitted, its brown measured on his coat (its shadows come from
+# the game's cartoon shading), a small lip at the cuff and, as on his model, two thin seams around
+# the sleeve near the cuff and the strap tab across them, outlined in ink; two thin crease lines.
+[arms.Mongoose.sleeve]
+fabric_from = "XIIIPersos.MangousteM"
+cuff = 0.97
+creases = true
+rings = [0.68, 0.82]
+tab = [0.63, 0.9, 1.15, 0.2]
+relief_from = "XIIIPersos.MangousteM"
+thickness = 1.05
+room = 0.15
+lip = 1.05
+folds = 0

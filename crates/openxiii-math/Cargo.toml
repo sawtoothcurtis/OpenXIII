@@ -1,0 +1,11 @@
+[package]
+name = "openxiii-math"
+description = "Transcendental functions of the simulation: the platform's, or a portable implementation identical on every machine"
+version.workspace = true
+edition.workspace = true
+license.workspace = true
+
+[features]
+
+[dependencies]
+libm = "0.2"

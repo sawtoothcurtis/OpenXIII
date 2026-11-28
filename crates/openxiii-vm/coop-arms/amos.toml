@@ -1,0 +1,45 @@
+[mod]
+name = "Amos's arms"
+version = "1.0.0"
+author = "OpenXIII"
+description = "Arms of a co-op character: every weapon and object seen in first person is held with Colonel Amos's one gloved hand, in the sleeve of his plaid suit, made from the player's own game when it starts. Use it instead of the other arms mods, not with them."
+openxiii = "0.1.0"
+
+# Every first-person mesh of the game, drawn instead of the game's. On his model Amos has no left
+# arm (its bones hold no point; the empty sleeve is tucked into his jacket pocket): the left arm
+# is not drawn, and what it held stays where the game's animation puts it. His right hand wears a
+# dark brown glove; between the glove and the sleeve shows a thin strip of his skin (measured on
+# his face). His hand is the size of XIII's. The weapons and objects themselves are unchanged.
+[arms.Amos]
+from = ["XIIIArmes.*", "XIIIDeco.*"]
+replace = true
+hide_arm = "left"
+skin = [208, 160, 137]
+
+# The jacket's sleeve: straight and fitted, its dark red measured on his suit (its shadows come
+# from the game's cartoon shading), with the plaid of the cloth (thin darker lines about every
+# 30 % of the forearm, four along it), the three buttons near the cuff, two thin crease lines
+# and a small lip at the cuff.
+[arms.Amos.sleeve]
+fabric_from = "XIIIPersos.AmosM"
+cuff = 0.95
+creases = true
+checks = [0.3, 4, 0.05]
+check_colour = [63, 13, 16]
+buttons = [0.9, 3, 1.15, 0.045]
+button_colour = [70, 35, 30]
+relief_from = "XIIIPersos.AmosM"
+thickness = 1.05
+room = 0.15
+lip = 1.04
+folds = 0
+
+# The glove, measured on his hand, from the wrist.
+[arms.Amos.gloves]
+colour_from = "XIIIPersos.AmosM"
+from = 1.0
+
+# With no left arm, every punch is thrown by the right hand: the left punch plays the right one
+# (both last 11 frames at 30 per second and carry no notify, so nothing else changes).
+[class."XIII.Fists"]
+FirstPersonAnimations = { FireL = "fireR" }

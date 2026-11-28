@@ -1,0 +1,15 @@
+[mod]
+name = "A policeman's arms"
+version = "1.0.0"
+author = "OpenXIII"
+description = "Arms of a co-op character: every weapon and object seen in first person is held with a policeman's bare forearms (his shirt has short sleeves), made from the player's own game when it starts. Use it instead of the other arms mods, not with them."
+openxiii = "0.1.0"
+
+# Every first-person mesh of the game, drawn instead of the game's. The policeman (GroflicM in the
+# blue police dress of its model) wears a short-sleeved shirt: his forearms and hands are bare,
+# the size of XIII's. The skin is measured on his own hands and forearms. The weapons and objects
+# themselves are unchanged.
+[arms.Policeman]
+from = ["XIIIArmes.*", "XIIIDeco.*"]
+replace = true
+skin_from = "XIIIPersos.GroflicM"

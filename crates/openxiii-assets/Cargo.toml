@@ -1,0 +1,22 @@
+[package]
+name = "openxiii-assets"
+description = "Decoders for the resources of XIII (textures, sounds, meshes)"
+version.workspace = true
+edition.workspace = true
+license.workspace = true
+
+[features]
+# Mod support (docs/modding/README.md), enabled by openxiii-vm's "mods" feature: the mods' own
+# textures. Off by default and in the faithful release.
+mods = ["runtime_textures"]
+# Textures made while the game runs (the improved build's menu pictures): the table of
+# mod_textures.rs without any mod. Off in the faithful release.
+runtime_textures = []
+
+[dependencies]
+openxiii-math = { path = "../openxiii-math" }
+openxiii-package = { path = "../openxiii-package" }
+openxiii-script = { path = "../openxiii-script" }
+png = "0.17"
+# Material and property tables looked up on every draw (fast hashing, same contents).
+rustc-hash = "2"

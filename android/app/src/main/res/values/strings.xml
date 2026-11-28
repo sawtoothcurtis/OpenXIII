@@ -1,0 +1,6 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="app_name">XIII</string>
+    <string name="change_folder_short">Game folder</string>
+    <string name="change_folder_long">Change the game folder</string>
+</resources>

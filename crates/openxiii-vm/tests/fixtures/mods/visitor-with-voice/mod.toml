@@ -1,0 +1,43 @@
+[mod]
+name = "Visitor with his voice"
+version = "1.0.0"
+author = "OpenXIII"
+description = "Example mod: General Carrington, from a later level (Hual02), waits calmly in the beach hut (Plage01) and says his own lines of the game, with his real voice."
+openxiii = "0.1.0"
+
+# He stands in the beach hut, a few steps from where XIII wakes up, facing him. "Carrington" is a
+# look name (Characters tab of Modding catalog.html): a calm story character of the game with
+# Carrington's look, his voice and his name, a friend of XIII (as in Hual02).
+[[map.Plage01.add]]
+character = "Carrington"
+position = [-470, -860, 1190]
+yaw = 180
+
+# Lines (README.md, "Dialogues"). Every line here is a line of the game: its voice and its
+# subtitle are read from the player's own game files (the voice from the level's Voices package,
+# loaded with its sound bank when needed; the subtitle in the player's language). Nothing of the
+# game is copied into the mod. Lines triggered together are said one after the other, and never
+# over the game's own dialogues.
+
+# Janet, a character of the map (her PawnName is Pam), asks about him as soon as the level
+# starts: a line of Plage01.
+[[map.Plage01.say]]
+by = "Pam"
+line = "Plage01_Pam_03"               # "Who's that?" (dialogues.md)
+when = "start"
+delay = 1
+
+# When the opening scene ends (the map triggers Objectif91, XIII's first goal), Carrington
+# greets him with one of his lines of Hual02, in his own voice.
+[[map.Plage01.say]]
+by = "Carrington"
+line = "Hual02_Carrington_06"         # "My best man, alive!"
+when = "event"
+event = "Objectif91"
+
+# When XIII comes near him (after the opening scene: during a cinematic XIII does not walk),
+# another of his lines of Hual02.
+[[map.Plage01.say]]
+by = "Carrington"
+line = "Hual02_Carrington_05"         # "My god! I can't believe it..."
+distance = 250

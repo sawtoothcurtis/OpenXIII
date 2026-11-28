@@ -1,0 +1,8 @@
+[mod]
+name = "Beach Weapons"
+version = "1.0.0"
+author = "OpenXIII"
+description = "Example mod: on the beach (Plage01), XIII wakes up with a pistol, finds a sniper rifle next to him, and the throwing knives of the beach are magnums. Try it from Brighton Beach 3 (Select level), which skips the opening scene."
+openxiii = "0.1.0"
+
+# The changes of the beach are in maps/Plage01.toml.

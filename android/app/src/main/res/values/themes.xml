@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <style name="Theme.OpenXIII" parent="Theme.AppCompat.NoActionBar">
+        <item name="android:windowBackground">@android:color/black</item>
+        <item name="colorAccent">#E8B000</item>
+    </style>
+    <style name="Theme.OpenXIII.Game">
+        <item name="android:windowFullscreen">true</item>
+    </style>
+</resources>

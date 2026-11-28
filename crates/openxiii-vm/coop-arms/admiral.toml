@@ -1,0 +1,34 @@
+[mod]
+name = "Admiral Edelbright's arms"
+version = "1.0.0"
+author = "OpenXIII"
+description = "Arms of a co-op character: every weapon and object seen in first person is held with Admiral Edelbright's bare hands in the white sleeves of his uniform, made from the player's own game when it starts. Use it instead of the other arms mods, not with them."
+openxiii = "0.1.0"
+
+# Every first-person mesh of the game, drawn instead of the game's. Admiral Edelbright (PachaM, in
+# SMarin01 and SMarin02) wears a white naval uniform with the gold stripes of his rank on the
+# sleeves; his hands are bare, the size of XIII's. Skin and cloth are measured on his model. The
+# weapons and objects themselves are unchanged.
+[arms.Admiral]
+from = ["XIIIArmes.*", "XIIIDeco.*"]
+replace = true
+skin_from = "XIIIPersos.PachaM"
+
+# The sleeve: straight and fitted, white, with his gold stripes as on his model (a wide one at the
+# cuff and four narrow ones above it, the same spacing, ending at the cuff), two thin crease lines
+# and a small lip.
+[arms.Admiral.sleeve]
+fabric_from = "XIIIPersos.PachaM"
+cuff = 0.95
+band = [232, 186, 118]
+band_at = 0.83
+band_width = 0.1
+rings = [0.43, 0.55, 0.66, 0.77]
+ring_colour = [232, 186, 118]
+ring_width = 0.03
+creases = true
+relief_from = "XIIIPersos.PachaM"
+thickness = 1.05
+room = 0.15
+lip = 1.03
+folds = 0

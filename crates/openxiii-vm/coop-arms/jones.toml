@@ -1,0 +1,20 @@
+[mod]
+name = "Jones's arms"
+version = "2.0.0"
+author = "OpenXIII"
+description = "Arms of a co-op character: every weapon and object seen in first person is held with Jones's hands (thinner hands and fingers, her skin colour, light nails), made from the player's own game when it starts."
+openxiii = "0.1.0"
+
+# Every first-person mesh of the game (the weapons, the objects picked up or used, the fists,
+# the hostage and the body carried) is remade with thinner fingers, hands and wrists and
+# recoloured to the skin measured on Jones's own model (her arms are bare in the game: no sleeve
+# to add), then drawn instead of the game's. The weapons and objects themselves are unchanged.
+[arms.Jones]
+from = ["XIIIArmes.*", "XIIIDeco.*"]
+replace = true
+fingers = 0.75
+hand = 0.8
+wrist = 0.7
+forearm = 0.85
+skin_from = "XIIIPersos.JonesM"
+nails = [222, 172, 160]

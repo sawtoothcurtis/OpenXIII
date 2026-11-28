@@ -1,0 +1,14 @@
+[mod]
+name = "McCall's arms"
+version = "1.0.0"
+author = "OpenXIII"
+description = "Arms of a co-op character: every weapon and object seen in first person is held with McCall's bare forearms (his sleeves are rolled up above the elbow), made from the player's own game when it starts. Use it instead of the other arms mods, not with them."
+openxiii = "0.1.0"
+
+# Every first-person mesh of the game, drawn instead of the game's. On his model McCall's sleeves
+# are rolled up above the elbow: his forearms and hands are bare, the size of XIII's. The skin is
+# measured on his own hands and forearms. The weapons and objects themselves are unchanged.
+[arms.McCall]
+from = ["XIIIArmes.*", "XIIIDeco.*"]
+replace = true
+skin_from = "XIIIPersos.McCallM"

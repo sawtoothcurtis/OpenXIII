@@ -1,0 +1,12 @@
+[mod]
+name = "Bodyguard"
+version = "1.0.0"
+author = "OpenXIII"
+description = "Example mod: on the beach (Plage01), after the opening scene, a bodyguard joins XIII, follows him and fights whoever attacks him. His behaviour is written in Lua."
+openxiii = "0.1.0"
+
+# What the bodyguard is: a soldier of the game (its AI fights and walks), on XIII's side.
+[character.Bodyguard]
+base = "XIDPawn.BaseSoldier"
+team = "friend"
+properties = { Mesh = "XIIIPersos.SpadsM", Health = 300 }

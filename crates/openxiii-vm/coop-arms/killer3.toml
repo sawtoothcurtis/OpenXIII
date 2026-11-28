@@ -1,0 +1,24 @@
+[mod]
+name = "A killer's arms (rust jacket)"
+version = "1.0.0"
+author = "OpenXIII"
+description = "Arms of a co-op character: every weapon and object seen in first person is held with the bare hands and rust jacket sleeves of one of the Mongoose's killers, made from the player's own game when it starts. Use it instead of the other arms mods, not with them."
+openxiii = "0.1.0"
+
+# Every first-person mesh of the game, drawn instead of the game's. The killer of Tueur3M in his
+# first dress: a rust-coloured jacket whose plain sleeves come down to the wrist; bare hands, the
+# size of XIII's. Skin and cloth are measured on his model. The weapons and objects are unchanged.
+[arms.Killer3]
+from = ["XIIIArmes.*", "XIIIDeco.*"]
+replace = true
+skin_from = "XIIIPersos.Tueur3M"
+
+[arms.Killer3.sleeve]
+fabric_from = "XIIIPersos.Tueur3M"
+cuff = 0.95
+creases = true
+relief_from = "XIIIPersos.Tueur3M"
+thickness = 1.05
+room = 0.15
+lip = 1.04
+folds = 0

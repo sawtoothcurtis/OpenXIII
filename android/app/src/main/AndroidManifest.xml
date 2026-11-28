@@ -1,0 +1,56 @@
+<?xml version="1.0" encoding="utf-8"?>
+<manifest xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <!-- Reads the original game in place, in the folder the player chose. -->
+    <uses-permission android:name="android.permission.MANAGE_EXTERNAL_STORAGE" />
+    <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" android:maxSdkVersion="32" />
+    <uses-permission android:name="android.permission.VIBRATE" />
+    <!-- Local network games: without INTERNET, Android refuses every socket (hosting and joining
+         fail). Game search uses UDP broadcasts on the Wi-Fi, which some phones drop without a
+         MulticastLock (GameActivityXiii). -->
+    <uses-permission android:name="android.permission.INTERNET" />
+    <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
+    <uses-permission android:name="android.permission.ACCESS_WIFI_STATE" />
+    <uses-permission android:name="android.permission.CHANGE_WIFI_MULTICAST_STATE" />
+
+    <uses-feature android:glEsVersion="0x00030000" android:required="true" />
+    <uses-feature android:name="android.hardware.vulkan.version" android:version="0x400003" android:required="false" />
+    <uses-feature android:name="android.hardware.touchscreen" android:required="false" />
+    <uses-feature android:name="android.hardware.gamepad" android:required="false" />
+
+    <application
+        android:label="@string/app_name"
+        android:icon="@mipmap/ic_launcher"
+        android:roundIcon="@mipmap/ic_launcher"
+        android:allowBackup="false"
+        android:requestLegacyExternalStorage="true"
+        android:appCategory="game"
+        android:isGame="true"
+        android:extractNativeLibs="true"
+        android:theme="@style/Theme.OpenXIII">
+
+        <activity
+            android:name=".LauncherActivity"
+            android:exported="true"
+            android:screenOrientation="sensorLandscape"
+            android:configChanges="orientation|screenSize|screenLayout|keyboardHidden">
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
+            <meta-data android:name="android.app.shortcuts" android:resource="@xml/shortcuts" />
+        </activity>
+
+        <activity
+            android:name=".GameActivityXiii"
+            android:process=":game"
+            android:exported="false"
+            android:launchMode="singleTask"
+            android:screenOrientation="sensorLandscape"
+            android:configChanges="orientation|screenSize|screenLayout|keyboardHidden|keyboard|navigation|uiMode|density|smallestScreenSize"
+            android:windowSoftInputMode="adjustNothing|stateHidden"
+            android:theme="@style/Theme.OpenXIII.Game">
+            <meta-data android:name="android.app.lib_name" android:value="openxiii" />
+        </activity>
+    </application>
+</manifest>

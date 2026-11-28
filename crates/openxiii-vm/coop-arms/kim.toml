@@ -1,0 +1,56 @@
+[mod]
+name = "Kim's arms"
+version = "1.0.0"
+author = "OpenXIII"
+description = "Arms of a co-op character: every weapon and object seen in first person is held with Kim's hands and the sleeves of her sweater, made from the player's own game when it starts. Use it instead of the other arms mods, not with them."
+openxiii = "0.1.0"
+
+# Every first-person mesh of the game, drawn instead of the game's. On her model Kim wears a
+# blue-grey turtleneck sweater whose sleeves come down to the wrist, her hands are slender and
+# bare and her nails are painted dark red: the hands are made thinner (as Jones's), the skin is
+# measured on her own hands. The weapons and objects themselves are unchanged.
+[arms.Kim]
+from = ["XIIIArmes.*", "XIIIDeco.*"]
+replace = true
+fingers = 0.75
+hand = 0.8
+wrist = 0.7
+forearm = 0.85
+skin_from = "XIIIPersos.KimM"
+nails = [128, 36, 66]
+
+# The sweater's sleeve: straight and fitted, its colour measured on her sweater (its shadows come
+# from the game's cartoon shading), a small lip at the cuff, two thin crease lines and, as on her
+# model, the ribbed knit cuff: from 43 % of the forearm to the cuff, 12 darker stripes along the
+# arm, each a little more than half of its period wide. The cuff hugs the wrist: the sleeve narrows
+# from there to 72 % of its width at the cuff.
+[arms.Kim.sleeve]
+fabric_from = "XIIIPersos.KimM"
+cuff = 0.95
+creases = true
+ribs = [0.43, 12, 0.55]
+rib_colour = [99, 130, 123]
+relief_from = "XIIIPersos.KimM"
+thickness = 1.05
+room = 0.15
+lip = 1.03
+taper = [0.43, 0.72]
+folds = 0
+
+# With the long weapons held far forward, the camera looks along the left forearm and the sleeve
+# would hide most of the hand: on those five the sleeve rides up a little (the cuff at 85 % of
+# the forearm instead of 95 %).
+[arms.Kim.mesh."XIIIArmes.FpsFChasseM"]
+cuff = 0.85
+
+[arms.Kim.mesh."XIIIArmes.FpsKalashM"]
+cuff = 0.85
+
+[arms.Kim.mesh."XIIIArmes.FpsLanceHarponM"]
+cuff = 0.85
+
+[arms.Kim.mesh."XIIIArmes.FpsSniperM"]
+cuff = 0.85
+
+[arms.Kim.mesh."XIIIArmes.FpsM16M"]
+cuff = 0.85

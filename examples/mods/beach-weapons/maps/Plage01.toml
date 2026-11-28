@@ -1,0 +1,22 @@
+# Plage01 only (this file is read after mod.toml, as every .toml file of the maps folder).
+
+# Given to the player when the level starts (simple weapon names, or classes).
+[map.Plage01.start]
+weapons = ["Pistol"]
+ammo = { "XIII.c9mmAmmo" = 30 }
+
+# A sniper rifle on the floor of the beach hut, a few steps in front of where XIII wakes up
+# (after the opening scene he stands at [-658, -860, 1190]). Positions are points on the ground;
+# the modpos console command prints the player's own.
+[[map.Plage01.add]]
+class = "XIII.FusilSnipePick"
+position = [-450, -912, 1190]
+yaw = 90
+
+# The 9mm pistol placed by the map is no longer needed: XIII starts with one.
+[[map.Plage01.remove]]
+name = "BerettaPick0"
+
+# Throwing knives become magnums.
+[map.Plage01.replace]
+"XIII.TKnifePick" = "XIII.MagnumPick"

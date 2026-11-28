@@ -1,0 +1,31 @@
+[mod]
+name = "Carrington's arms"
+version = "1.0.0"
+author = "OpenXIII"
+description = "Arms of a co-op character: every weapon and object seen in first person is held with Carrington's hands and the long sleeves of his uniform, made from the player's own game when it starts. Use it instead of jones-arms, not with it."
+openxiii = "0.1.0"
+
+# Every first-person mesh of the game, drawn instead of the game's: the hands keep XIII's shape
+# (Carrington is a broad man), the skin is measured on Carrington's own hands, and the forearms
+# wear the sleeves of his uniform. The weapons and objects themselves are unchanged.
+[arms.Carrington]
+from = ["XIIIArmes.*", "XIIIDeco.*"]
+replace = true
+skin_from = "XIIIPersos.CarringtonM"
+
+# The sleeve: straight and fitted as on his model, plain in the colour of his uniform (its
+# shadows come from the game's cartoon shading), two thin crease lines, a small lip at the cuff,
+# and the black band his sleeve has, at the same place (60 % to 73.5 % of the forearm from the
+# elbow). Without the band: remove the three band lines.
+[arms.Carrington.sleeve]
+fabric_from = "XIIIPersos.CarringtonM"
+cuff = 0.97
+creases = true
+band = [18, 19, 22]
+band_at = 0.6
+band_width = 0.135
+relief_from = "XIIIPersos.CarringtonM"
+thickness = 1.05
+room = 0.15
+lip = 1.04
+folds = 0

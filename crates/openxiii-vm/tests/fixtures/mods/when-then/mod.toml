@@ -1,0 +1,44 @@
+[mod]
+name = "When then"
+version = "1.0.0"
+author = "OpenXIII"
+description = "Example mod: reactions written in the toml, without a script. On the beach (Plage01), once XIII can move: a shotgun, General Carrington waits at the hut and speaks when XIII comes near him, L makes an enemy come, and a message comes when he dies."
+openxiii = "0.1.0"
+
+# Each [[map.<Map>.when]] block: an event, then what happens, in order (docs/modding/reactions.md).
+
+# When XIII can move (after the opening scene): a shotgun, a message, and General Carrington
+# (a character of a later level) standing at the hut.
+[[map.Plage01.when]]
+event = "start"
+then = [
+  { give = "Shotgun" },
+  { message = "Someone waits for you at the hut." },
+  { spawn = "Carrington", position = [-470, -860, 1190], yaw = 180 },
+]
+
+# Near Carrington, only the first time: his line, then a goal.
+[[map.Plage01.when]]
+event = "near"
+who = "Carrington"
+distance = 150
+once = true
+then = [
+  { say = "Hual02_Carrington_06" },        # said by the character of the event: Carrington
+  { objective = "Hold the beach" },
+]
+
+# The L key: an enemy with a pistol appears further along the beach and comes for XIII
+# (team = "enemy": he attacks; press X for the shotgun).
+[[map.Plage01.when]]
+event = "key"
+key = "L"
+then = [
+  { spawn = "Guard", position = [-250, -900, 1190], team = "enemy", weapon = "Pistol" },
+]
+
+# When the guard dies: a message.
+[[map.Plage01.when]]
+event = "death"
+who = "Guard"
+then = [ { message = "The guard is down." } ]

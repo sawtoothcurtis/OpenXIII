@@ -1,0 +1,13 @@
+[package]
+name = "openxiii-hx"
+description = "Reimplementation of the HX sound engine used by XIII: sound programs, sound objects, actors"
+version.workspace = true
+edition.workspace = true
+license.workspace = true
+
+[features]
+
+[dependencies]
+openxiii-math = { path = "../openxiii-math" }
+openxiii-package = { path = "../openxiii-package" }
+openxiii-assets = { path = "../openxiii-assets" }

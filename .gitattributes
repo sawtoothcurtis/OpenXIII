@@ -1,0 +1,6 @@
+# Every text file is stored with Unix line endings.
+* text=auto eol=lf
+# Windows scripts get Windows line endings when checked out.
+*.cmd text eol=crlf
+*.bat text eol=crlf
+*.ps1 text eol=crlf

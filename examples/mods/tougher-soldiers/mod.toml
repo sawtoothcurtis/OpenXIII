@@ -1,0 +1,21 @@
+[mod]
+name = "Tougher Soldiers"
+version = "1.0.0"
+author = "OpenXIII"
+description = "Example mod: soldiers have twice their health, and three times on the beach (Plage01)."
+openxiii = "0.1.0"
+
+# Every soldier. Most enemies of the game are this one class, set up one by one in the maps,
+# often with their own health saved in the map: apply_to_placed changes those too.
+[class."XIDPawn.BaseSoldier"]
+Health = 200
+apply_to_placed = true
+
+# Enemies created during play by a generator get their health from the generator (PV_NMI).
+[class."XIDPawn.gennmi"]
+PV_NMI = 200
+apply_to_placed = true
+
+# Only on Plage01: these values win over the ones above for the soldiers of this map.
+[map.Plage01.class."XIDPawn.BaseSoldier"]
+Health = 300

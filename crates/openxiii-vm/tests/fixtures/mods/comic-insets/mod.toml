@@ -1,0 +1,6 @@
+[mod]
+name = "Comic insets"
+version = "1.0.0"
+author = "OpenXIII"
+description = "Example mod: when the opening scene of the beach (Plage01) ends, three comic-book insets show XIII from three cameras, as the levels show theirs."
+openxiii = "0.1.0"

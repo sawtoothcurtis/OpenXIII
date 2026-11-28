@@ -1,0 +1,11 @@
+[package]
+name = "openxiii-script"
+description = "Reader and disassembler for the UnrealScript bytecode of XIII"
+version.workspace = true
+edition.workspace = true
+license.workspace = true
+
+[dependencies]
+openxiii-package = { path = "../openxiii-package" }
+
+[features]

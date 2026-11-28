@@ -1,0 +1,13 @@
+[mod]
+name = "Beach mission"
+version = "1.0.0"
+author = "OpenXIII"
+description = "Example mod: a small new mission on the beach (Plage01), written in Lua. After the opening scene, hold the beach against three waves of soldiers."
+openxiii = "0.1.0"
+
+# The soldiers of the waves. The script (scripts/mission.lua) says when and where they come;
+# what they are is written here, as for any mod character.
+[character.Raider]
+base = "XIDPawn.BaseSoldier"                 # the game's soldier, with its own AI
+team = "enemy"                               # attacks the player
+properties = { Mesh = "XIIIPersos.SpadsM" }  # the look of the beach's soldiers

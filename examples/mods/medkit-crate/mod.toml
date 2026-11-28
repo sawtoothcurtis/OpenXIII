@@ -1,0 +1,19 @@
+[mod]
+name = "Medkit Crate"
+version = "1.0.0"
+author = "OpenXIII"
+description = "Example mod: a 3D model made for the mod (glTF, with its PNG texture) stands on the pontoon of the beach (Plage01), at the bottom of the stairs by the main hut, as a first-aid crate the player can pick up. Try it from Brighton Beach 3 (Select level), which skips the opening scene."
+openxiii = "0.1.0"
+
+# The model: a 2 m crate (the file's crate is 1 m wide, at 100 game units per metre).
+[models.Crate]
+file = "models/crate.gltf"
+scale = 100
+
+# A med kit of the game that looks like the crate: its StaticMesh is the mod's model. It stands
+# on the lower pontoon, beside the bottom of the wide stairs that come down from the main hut
+# (the pontoon's wooden floor is at height 992 there), clear of the steps.
+[[map.Plage01.add]]
+class = "XIII.MedPick"
+position = [430, -2480, 992]
+properties = { StaticMesh = "Mod.Crate" }

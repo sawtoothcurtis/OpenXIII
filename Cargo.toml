@@ -1,0 +1,18 @@
+[workspace]
+resolver = "2"
+# The Android library is a separate workspace: built only for Android
+# (android\build-apk.ps1), never by the PC cargo commands.
+exclude = ["crates/openxiii-android"]
+members = ["crates/openxiii-package", "crates/openxiii-assets", "crates/openxiii-script", "crates/openxiii-hx", "crates/openxiii-viewer", "crates/openxiii-vm", "crates/openxiii-cli", "crates/openxiii-mods", "crates/openxiii-update", "crates/openxiii-math"]
+
+[workspace.package]
+version = "0.1.0"
+edition = "2021"
+license = "GPL-3.0-or-later"
+repository = "https://github.com/sawtoothcurtis/OpenXIII"
+
+# wgpu-hal 30.0.1 patched for OpenXIII (vendor/wgpu-hal/README-OpenXIII.md).
+[patch.crates-io]
+wgpu-hal = { path = "vendor/wgpu-hal" }
+# wgpu-core 30.0.1 with lighter bookkeeping while encoding (vendor/wgpu-core/README-OpenXIII.md).
+wgpu-core = { path = "vendor/wgpu-core" }

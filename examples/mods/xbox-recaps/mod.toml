@@ -1,0 +1,9 @@
+[mod]
+name = "Xbox Loading Recaps"
+version = "1.0.0"
+author = "OpenXIII"
+description = "Example mod: while the next level loads, the comic bubbles of the Xbox version recall the story so far. Press any key or button to skip to the usual loading screen; once the level is ready, press to start."
+openxiii = "0.1.0"
+
+# Everything is in scripts/recaps.lua: the texts are the game's own (the [EndMsgMap] section of
+# the language files, which the PC version ships but never shows), in the player's language.

@@ -1,0 +1,21 @@
+[package]
+name = "openxiii-mods"
+description = "Mod discovery for OpenXIII (Mods folder, mod.toml)"
+version.workspace = true
+edition.workspace = true
+license.workspace = true
+
+[dependencies]
+openxiii-math = { path = "../openxiii-math" }
+serde = { version = "1", features = ["derive"] }
+toml = "0.8"
+# The mods' own sounds: WAV and OGG Vorbis decoding.
+hound = "3"
+lewton = "0.10"
+# The mods' own textures: PNG decoding (same version as the game window's).
+png = "0.17"
+# The mods' own 3D models: glTF 2.0 (.gltf with its files, or .glb).
+gltf = { version = "1", default-features = false, features = ["utils", "names"] }
+
+[dev-dependencies]
+tempfile = "3"

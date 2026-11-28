@@ -1,0 +1,60 @@
+[package]
+name = "openxiii-viewer"
+description = "OpenXIII game executable and real-time map viewer (wgpu)"
+version.workspace = true
+edition.workspace = true
+license.workspace = true
+
+[[bin]]
+name = "oxiii-view"
+path = "src/main.rs"
+
+[features]
+# Cheats of the test builds (Select level menu, test weapons, god mode, infinite ammo,
+# speed x2/x3; aim assist is a setting of both builds), off by default: `--features cheats`
+# turns them on. Without it, the game is the original's, without any cheat.
+default = []
+cheats = []
+# Improved build (fixes beyond the original game): without it, the faithful build, identical to
+# the game. The improved build also includes mod support ("mods", docs/modding/README.md); the
+# faithful build (no feature) has no mods code.
+improved = ["openxiii-vm/improved", "mods"]
+# Direct3D 11 instead of DirectX 12 on Windows (vendor/wgpu-hal/src/dx11).
+dx11 = ["dep:wgpu-hal", "wgpu-hal/dx11"]
+# Mod support (docs/modding/README.md). Off by default and in the faithful release: without it,
+# openxiii-mods is not compiled in and the game is unchanged.
+mods = ["dep:openxiii-mods", "openxiii-vm/mods"]
+
+[dependencies]
+openxiii-math = { path = "../openxiii-math" }
+openxiii-package = { path = "../openxiii-package" }
+openxiii-assets = { path = "../openxiii-assets" }
+openxiii-vm = { path = "../openxiii-vm" }
+openxiii-hx = { path = "../openxiii-hx" }
+openxiii-mods = { path = "../openxiii-mods", optional = true }
+wgpu = "30"
+winit = "0.30"
+pollster = "1"
+bytemuck = { version = "1", features = ["derive"] }
+png = "0.17"
+rodio = { version = "=0.20.1", default-features = false }
+gilrs = "0.11"
+# Actor tables looked up every frame (fast hashing, same contents).
+rustc-hash = "2"
+# wgpu log (OXIII_LOG_WGPU=1): errors and warnings of the graphics APIs.
+log = "0.4"
+
+# New version notice of the released game (launch window, before the game; Android has its own in the launcher).
+[target.'cfg(not(target_os = "android"))'.dependencies]
+openxiii-update = { path = "../openxiii-update" }
+
+[target.'cfg(windows)'.dependencies]
+# Allocator: the game creates and frees many small values every frame; the Windows one was
+# costly on slow processors.
+mimalloc = { version = "0.1", default-features = false }
+# Only to enable the dx11 feature of the repository's wgpu-hal (vendor/wgpu-hal, [patch]).
+wgpu-hal = { version = "30", optional = true }
+rfd = "0.15"
+
+[dev-dependencies]
+openxiii-script = { path = "../openxiii-script" }

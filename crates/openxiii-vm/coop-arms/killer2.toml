@@ -1,0 +1,31 @@
+[mod]
+name = "A killer's arms (orange blouson)"
+version = "1.0.0"
+author = "OpenXIII"
+description = "Arms of a co-op character: every weapon and object seen in first person is held with the bare hands and orange blouson sleeves of one of the Mongoose's killers, made from the player's own game when it starts. Use it instead of the other arms mods, not with them."
+openxiii = "0.1.0"
+
+# Every first-person mesh of the game, drawn instead of the game's. The killer of Tueur2M in his
+# first dress: an orange blouson whose sleeves end in a khaki ribbed cuff; bare hands, the size of
+# XIII's. Skin and cloth are measured on his model. The weapons and objects are unchanged.
+[arms.Killer2]
+from = ["XIIIArmes.*", "XIIIDeco.*"]
+replace = true
+skin_from = "XIIIPersos.Tueur2M"
+
+# The sleeve: straight and fitted, plain orange, narrowing into the khaki ribbed cuff (a band with
+# darker stripes along the arm), two thin crease lines and a small lip.
+[arms.Killer2.sleeve]
+fabric_from = "XIIIPersos.Tueur2M"
+cuff = 0.95
+band = [87, 78, 57]
+band_width = 0.12
+ribs = [0.83, 12, 0.45]
+rib_colour = [62, 55, 40]
+creases = true
+relief_from = "XIIIPersos.Tueur2M"
+thickness = 1.05
+room = 0.15
+lip = 1.03
+taper = [0.75, 0.85]
+folds = 0

@@ -1,0 +1,149 @@
+[mod]
+name = "Blaster (new weapon)"
+version = "2.0.0"
+author = "OpenXIII"
+description = "Example mod: a new weapon, the Blaster, with its own 3D model, texture, firing sound, ammo and values. The fire button shoots one accurate laser shot; the second fire button, held, shoots a fast volley. It hits harder than the .44. It lies on the floor of the beach hut, next to where XIII wakes up (Plage01). Try it from Brighton Beach 3 (Select level), which skips the opening scene."
+openxiii = "0.1.0"
+
+# Its own files: the gun's 3D model (with its PNG texture) and its two sounds.
+# The model is made by ../make-blaster-model.py (Blender, no window needed).
+[models.BlasterGun]
+file = "models/blaster.gltf"
+# outline_width = 1.0         # outline thickness: 1.0 = the game's (2.0 = twice as thick)
+
+[sounds.BlasterShot]
+file = "sounds/blaster-shot.wav"
+
+[sounds.BlasterEmpty]         # played when the trigger is pulled with no ammo left
+file = "sounds/blaster-empty.wav"
+
+# Its icon in the HUD (weapon list, pickup message), 64 x 32.
+[textures.BlasterIcon]
+file = "textures/blaster-icon.png"
+
+# The new classes: the weapon, the pickup that gives it, the gun seen in a character's hand,
+# and its ammo. Each one works like the game class it is made from. The .44 gives the two fire
+# buttons: one shot per press on the first, shots in a row while the second is held.
+[classes.Blaster]
+parent = "XIII.magnum"
+
+[classes.BlasterPick]
+parent = "XIII.magnumpick"
+
+[classes.BlasterAttach]
+parent = "XIII.MagnumAttach"
+
+[classes.BlasterAmmo]
+parent = "XIII.c44Ammo"
+
+# The weapon's own values.
+[class."Mod.Blaster"]
+ItemName = "Blaster"
+AmmoName = "Mod.BlasterAmmo"
+AltAmmoName = "Mod.BlasterAmmo"
+PickupClassName = "Mod.BlasterPick"
+AttachmentClass = "Mod.BlasterAttach"
+ReloadCount = 24          # shots before reloading (.44: 6)
+PickupAmmoCount = 24      # ammo inside the weapon when it is picked up
+TraceAccuracy = 0.4       # more accurate than the .44 (1.5)
+hFireSound = "Mod.BlasterShot"
+hAltFireSound = "Mod.BlasterShot"
+hNoAmmoSound = "Mod.BlasterEmpty"
+HudIcon = "Mod.BlasterIcon"   # its own icon; a new weapon also gets a weapon slot of its own
+
+# Its laser: the tracer drawn at every shot, in the texture's own colours (the game tints
+# tracers orange), and kept on screen four times longer than a bullet's streak.
+TracerColor = { R = 255, G = 255, B = 255 }
+FlashLength = 0.12        # seconds the tracer stays (the game: 0.03)
+# The tracer ends at the muzzle of the model held in first person (FirstPersonModel below),
+# whatever the screen's shape: FlashOffsetX and FlashOffsetY (where the game's guns end it) are
+# not needed.
+ViewFeedBack = { X = 1.5, Y = 3.0 }   # the view's kick at each shot: the 9mm's (.44: 4 and 13)
+
+# In first person: the 9mm's hands and animations, its gun hidden, and the Blaster's own model
+# (the one on the ground) held in the hand.
+FirstPersonFrom = "XIII.Beretta"
+FirstPersonAnimations = { FireAlt = "Fire" }   # the volley plays the 9mm's firing animation
+FireAnimRate = 2.2        # the next shot comes when the animation ends: 2.2 times sooner
+FirstPersonModel = "Mod.BlasterGun"
+FirstPersonModelBone = "Berretta"
+FirstPersonHideBones = ["Berretta", "chargeur", "percuteur"]
+FirstPersonModelScale = 0.3
+PlayerViewOffset = { Z = -3.3 }   # held a little higher than the 9mm (-4.0)
+# It is held facing forward by default; to move or turn it in the hand (seen by the player:
+# X forward, Y right, Z up; 16384 = 90°):
+# FirstPersonModelOffset = { X = 2.0, Z = -0.5 }
+# FirstPersonModelRotation = { Yaw = -1024 }
+
+[class."Mod.BlasterAmmo"]
+ItemName = "Blaster cells"
+MaxAmmo = 144
+SRDamages = 100           # damage at short range (.44: 80)
+LRDamages = 50            # damage at long range (.44: 35)
+
+# Its shots: a laser at every shot, blue sparks and a black burn mark where they hit.
+TBTexture = "Mod.BlasterTracer"        # the tracer drawn in first person (bullets: TraceBullet1)
+fTraceFrequency = 2.0                  # a tracer at every shot (bullets: 0.33, about one in three)
+ImpactEmitterMem = "Mod.BlasterSparks" # the effect where a shot hits
+DecalProjectorClass = "Mod.BlasterScorch"  # the mark it leaves on walls
+ImpactEffectsBySurface = false         # the same effect and mark on every surface (the game
+                                       # otherwise picks dust, wood chips… by the surface hit)
+
+# Its own textures for the effects.
+[textures.BlasterTracer]
+file = "textures/blaster-tracer.png"
+
+[textures.BlasterSpark]
+file = "textures/blaster-spark.png"
+
+[textures.BlasterFlash]
+file = "textures/blaster-flash.png"
+
+[textures.BlasterBurn]
+file = "textures/blaster-burn.png"
+clamp = true             # a mark: not repeated across the surface it is projected on
+
+# The impact effect: the metal ricochet of the game (a flash, sparks, a puff of smoke), with a
+# blue flash, blue sparks and black smoke. Each "Emitters[n]" table changes one of its particle
+# emitters (BulletMetalEmitterA, B and C), for this class only.
+[classes.BlasterSparks]
+parent = "XIII.BulletMetalEmitter"
+
+[class."Mod.BlasterSparks"]
+"Emitters[0]" = { Texture = "Mod.BlasterFlash" }
+"Emitters[1]" = { Texture = "Mod.BlasterSpark", MaxParticles = 16, StartVelocityRange = { X = { Min = 100.0, Max = 300.0 }, Y = { Min = -150.0, Max = 150.0 }, Z = { Min = -150.0, Max = 150.0 } } }
+"Emitters[2]" = { DrawStyle = "PTDS_Darken" }
+
+# The mark on walls: the game's bullet hole with a black burn texture, a little bigger and
+# staying longer.
+[classes.BlasterScorch]
+parent = "XIII.BulletScorch"
+
+[class."Mod.BlasterScorch"]
+ProjTexture = "Mod.BlasterBurn"
+DrawScale = 0.35          # bullets: 0.25
+Lifetime = 12             # seconds (bullets: 6)
+
+[class."Mod.BlasterPick"]
+InventoryType = "Mod.Blaster"
+PickupMessage = "Blaster"
+StaticMesh = "Mod.BlasterGun"
+
+[class."Mod.BlasterAttach"]
+WeaponClass = "Mod.Blaster"
+StaticMeshName = "Mod.BlasterGun"
+hFireSound = "Mod.BlasterShot"
+# Where its muzzle flash and its laser trail start, seen in a character's hand: the tip of the
+# Blaster's own model (the .44's, 34 units ahead, is past it), from the hand's bone: the gun's
+# place in the hand (the .44's ThirdPersonRelativeLocation, 17, -2.5, 5) plus the model's tip
+# (14.6 ahead, 2 up).
+MuzzleOffset = { X = 31.6, Y = -2.5, Z = 7.0 }
+
+# The Blaster lies on the floor of the beach hut, a few steps in front of where XIII wakes up
+# (after the opening scene he stands at [-658, -860, 1190], the position "modpos" prints there).
+# It is about 55 units beside the sniper rifle of the beach-weapons example ([-450, -912, 1190]),
+# so the two do not overlap when both mods are on.
+[[map.Plage01.add]]
+class = "Mod.BlasterPick"
+position = [-470, -860, 1190]
+rotation = [0, 90, 90]    # [pitch, yaw, roll] in degrees: lying on its side

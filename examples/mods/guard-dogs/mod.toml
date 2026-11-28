@@ -1,0 +1,48 @@
+[mod]
+name = "Guard Dogs"
+version = "1.0.0"
+author = "OpenXIII"
+description = "Example mod: guard dogs. The game's files hold a dog nobody ever placed in a level (a model, fifteen animations, its sounds and a 'bite' damage type). This mod brings it to life with Lua scripts only: dogs follow their masters, smell XIII, track him down, bite, get hurt and die."
+openxiii = "0.1.0"
+
+# What a dog is. Everything it does is written in scripts/dog.lua; where the dogs are is
+# written in scripts/places.lua.
+#
+# The dog is a new class made from XIDCine.Cine2, the game's class for story characters: it
+# has no AI of its own and does what scripts tell it, which is what a dog driven by Lua
+# needs. The model, its animations and its sounds come from the player's own game
+# (XIIIPersos.DogM, XIIIPersos.DogA, XIIISound): nothing is shipped with the mod.
+#
+# A class of its own, and not only a character, because the game goes back to a class's own
+# size at several moments (a character that is hit, that lands, that dies): with a man's
+# size the dog would be pushed into the floor.
+[classes.GuardDog]
+parent = "XIDCine.Cine2"
+
+[class."Mod.GuardDog"]
+Mesh = "XIIIPersos.DogM"
+# A dog is lower than a man: its feet are on the ground with these.
+CollisionRadius = 50
+CollisionHeight = 38
+# The script plays every animation itself (dog.lua, "Moving and standing"); these two are
+# what Cine2 falls back on by itself.
+DefaultAnim = "assie"
+WaitAnim = "assie"
+# Cine2 comes to the end of a walk at a speed of its own (it is made for scenes, where a
+# character must stop on its mark). A dog keeps the speed the script gives it.
+ImposedEndMovePosition = false
+# How far the dog is heard. The game plays a character's sounds at full volume up to
+# SaturationDistance, then fainter and fainter down to nothing at StabilisationDistance (400
+# and 1392 for everyone: 4 and 15 metres). A dog's voice carries: full up to 6 metres, heard
+# faintly at 50, gone at 60.
+SaturationDistance = 600
+StabilisationDistance = 5500
+# A man's voice and a man's footsteps do not fit a dog: values outside the game's tables
+# keep both silent (the script plays the dog's own).
+CodeMesh = 99
+SoundStepCategory = 9
+
+[character.Dog]
+base = "Mod.GuardDog"
+team = "enemy"
+properties = { PawnName = "Dog", Health = 70 }

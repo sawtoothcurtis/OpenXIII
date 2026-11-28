@@ -1,0 +1,10 @@
+[package]
+name = "openxiii-package"
+description = "Reader for the Unreal Engine 2 packages of XIII (.u, .unr, .utx, .usx, .uax)"
+version.workspace = true
+edition.workspace = true
+license.workspace = true
+
+[features]
+
+[dependencies]

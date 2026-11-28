@@ -1,0 +1,11 @@
+/.gradle/
+/build/
+/app/build/
+/local.properties
+/app/src/main/jniLibs/
+/output/
+/app/src/main/assets/licenses/
+*.keystore
+*.jks
+build-apk.local.properties
+/app/src/main/assets/mod-examples/
