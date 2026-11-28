@@ -52,7 +52,7 @@ Tests: `cargo test`, with `OXIII_GAME` set to the game's folder.
 
 ## Credits
 
-OpenXIII was developed with Claude Code.
+OpenXIII was developed by Claude Code.
 
 ## License
 
