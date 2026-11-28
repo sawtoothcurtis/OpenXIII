@@ -50,6 +50,10 @@ Android: run `android/build-apk.ps1` (see the comments at its top).
 
 Tests: `cargo test`, with `OXIII_GAME` set to the game's folder.
 
+## Credits
+
+OpenXIII was developed with Claude Code.
+
 ## License
 
 OpenXIII is free software under the GNU General Public License v3.0 or later (see `LICENSE`). Third-party
